@@ -1,0 +1,47 @@
+<footer class="container-fluid">
+    <h2 style="text-align: center; color: maroon"> BRILLIANT INFOTECH: EMPLOYEE MANAGEMENT APP </h2>
+</footer>
+  <br><div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav">
+         <br>
+         <app-profiledetails [emp]="emp"></app-profiledetails>
+      </div>
+  
+      <div class="col-sm-9">
+
+          <div class="row" *ngIf="!displayTimesheet">
+              <div class="col-md-4">
+                <div class="thumbnail">
+                  <a href="http://www.brilliantinfotech.com/careers" target="_blank">
+                    <img src="../assets/brilliant_infotech_logo.png" alt="Lights" style="width:100% ; height: 20vh;">
+                    <div class="caption">
+                      <h3 style="text-align:center ; color: navy">NEW OPPORTUNITIES</h3>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="thumbnail">
+                  <img (click)="displaytimesheet()"src="../assets/Timesheet-Clipart-2.jpg" alt="Lights" style="width:100% ; height:20vh;">
+                    <div class="caption">
+                      <h3 style="text-align:center ; color: navy">FILL YOUR TIMESHEET</h3>
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
+          
+        <div class="container-fluid">
+          <button style="text-align:center" class="btn btn-danger" (click)="gotomainpage()" *ngIf="displayTimesheet">BACK</button>
+          <app-hours *ngIf="displayTimesheet"></app-hours>
+        </div> 
+          </div>
+          
+        
+    </div>
+  
+  </div>
+
+ 
+  

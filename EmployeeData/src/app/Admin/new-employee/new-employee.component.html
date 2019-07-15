@@ -1,0 +1,92 @@
+<div class="container-fluid">
+<div class="login-page">
+    <h1 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; color: white; font-weight: bold">FILL THE FORM</h1>
+    <button (click)="goback()" style="text-align:center; width:150px ; margin: 1% ; background-color: white ; color: maroon" >BACK</button>
+    <div class="form">
+      <form [formGroup]="profileForm">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3">
+              <p>NAME:</p>
+            </div>
+            <div class="col-sm-9">
+               <input formControlName='empName'  type="text" style="width: 100% ; height: 20px;"/>
+           </div>
+         </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-3">
+                <p>EMAILID:</p>
+              </div>
+              <div class="col-sm-9">
+                 <input formControlName="email" type="email" style="width: 100% ; height: 20px;">
+             </div>
+           </div>
+          </div><div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p>SSN NUMBER:</p>
+                </div>
+                <div class="col-sm-9">
+                   <input  formControlName="ssn" type="text" style="width: 100% ; height: 20px;"  placeholder="###-##-####" maxlength="12">
+               </div>
+             </div>
+            </div><div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p>COMPANY NAME:</p>
+                  </div>
+                  <div class="col-sm-9">
+                     <input formControlName="cmp_Name" type="text" style="width: 100% ; height: 20px;">
+                 </div>
+               </div>
+              </div><div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p>RATE:</p>
+                    </div>
+                    <div class="col-sm-9">
+                       <input formControlName="rate" type="number" style="width: 100% ; height: 20px;">
+                   </div>
+                 </div>
+                </div><div class="container-fluid">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <p>PAYEMENT METHOD:</p>
+                      </div>
+                      <div class="col-sm-9">
+                         <select formControlName="methodofpayment" type="text" style="">
+                           <option value="weekly">WEEKLY</option>
+                           <option value="biweekly">BIWEEKLY</option>
+                           <option value="monthly">MONTHKY</option>
+                         </select>
+                     </div>
+                   </div>
+                  </div><div class="container-fluid">
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <p>CONTACT NUMBER:</p>
+                        </div>
+                        <div class="col-sm-9">
+                           <input formControlName="contactNumber" type="text" style="width: 100% ; height: 20px;">
+                       </div>
+                     </div>
+                    </div><div class="container-fluid">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <p>ADDRESS:</p>
+                          </div>
+                          <div class="col-sm-9">
+                             <input formControlName="address"  type="text" style="width: 100% ; height: 20px;">
+                         </div>
+                       </div>
+                      </div>
+             <button class="btn" (click)="onsubmitform()">SUBMIT</button>
+      </form>
+
+        
+    </div>
+</div>
+</div>
+

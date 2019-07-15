@@ -1,0 +1,59 @@
+
+
+<div class="selectionbox">
+  <br>
+  <div class="container">
+  <div class="row">
+  <div class="col-lg-3">
+  <p>SELECT  WEEK </p>
+  <form #myForm="ngForm" novalidate>
+  <my-date-range-picker (dateRangeChanged)="datesSubmitted($event)" name="mydaterange" [options]="myDateRangePickerOptions"
+                 disableSince="" required></my-date-range-picker>
+  
+  </form>
+  </div>
+ 
+  </div>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="displayColumns">
+ 
+    <div class="col-sm-1 myColumn" *ngFor="let dw of daysofweek">
+      <div class="box">
+      <p>{{dw.dateoftheday.getDate()+"/"+months[dw.dateoftheday.getMonth()]+"/"+dw.dateoftheday.getFullYear()}}</p>
+      <p>{{days[dw.dateoftheday.getUTCDay()]}}</p>
+       Hour<input [(ngModel)]="dw.hour" style="width: 40px" type="number" step="0.5" min="0" max="24"><p>
+    </div>
+    </div>
+   
+</div>
+
+
+<div class="row" *ngIf="displayColumns" >
+   
+      <div class="col-lg-2">
+         <button style="text-align: center" class="btn btn-primary" (click)="calculatehours()">SUBMIT HOURS</button>
+      </div>
+     <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon"><button (click)="onfileupload()"style="background-color: skyblue">UPLOAD</button></span>
+            <input (change)="onfilechange($event)" type="file" class="form-control" name="email" placeholder="Email">
+        </div>
+        
+    </div>  
+
+</div>
+<div class="row" *ngIf="!(total === 0)" >
+    <div class="col-lg-4">
+     </div>
+     <div class="col-lg-4">
+        <h1> Total hours are {{total}}</h1>
+     </div>
+    <div class="col-lg-4">
+    </div>
+
+</div>
+
+

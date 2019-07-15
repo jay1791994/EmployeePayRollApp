@@ -1,0 +1,61 @@
+
+
+<h1 style="text-align:center"> Employee Data </h1>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-1">
+  </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label for="sel1">Select list:</label>
+            <select (change)="filterdata($event.target.value)" class="form-control" id="sel1">
+              <option value="all">ALL</option>
+              <option value="monthly">MONTHLY</option>
+              <option value="weekly">WEEKLY</option>
+              <option value="biweekly">BIWEEKLY</option>
+              
+            </select>
+          </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+           <label>NEW EMPLOYEE</label>
+           <button class="btn btn-primary" (click)="createProfile()">CREATE NEW EMPLOYEE</button>
+          </div>
+    </div>
+   </div>
+<div class="container-fluid" *ngIf="employeeData.length" >
+   
+    <div class="panel panel-default">
+      
+        <div class="panel-heading">Panel heading</div>
+      
+        <!-- Table -->
+        <table class="table">
+            <thead>
+                <tr>
+                  <th>EmployeeName</th>
+                  <th>CompanyName</th>
+                  <th>Rate</th>
+                  <th>Payment Method</th>
+
+                </tr>
+              </thead>
+             
+        <tr [class]="getclassfromhere()" *ngFor="let emp of employeeData">
+              
+        <td>{{emp.empName}}</td>
+        <td>{{emp.cmp_Name}}</td>
+        <td>{{emp.rate| currency}}</td>
+        <td>{{emp.methodofpayment}}</td>
+        <td><button class="btn btn-primary" (click)="viewdetails(emp)">Edit</button></td>
+        <td><button class="btn btn-danger" (click)="deleteemp(emp)">DELETE</button></td>
+      </tr>
+     
+     
+    </tbody>
+         
+        </table>
+      </div>
+
+</div>

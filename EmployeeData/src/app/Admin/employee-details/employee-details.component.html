@@ -1,0 +1,19 @@
+<h1 style="text-align: center"> Employee Details </h1>
+
+
+<div class="container">
+    
+    <div class="panel-group">
+     
+     <div class="panel panel-warning">
+        <div class="panel-heading"><h2>THIS IS DATA FOR:  {{emp.empName}}</h2></div>
+        <div class="panel-body">
+            <p> Company Name : {{emp.cmp_Name}} </p>
+            <p> Rate id : {{emp.rate | currency}} </p>
+            <p> Payment Method is : {{emp.methodofpayment}} </p>
+        </div>
+      </div>
+      <br>
+  <button (click)="goback()" class="btn btn-danger">BACK </button>
+    
+  </div>

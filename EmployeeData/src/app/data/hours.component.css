@@ -1,0 +1,26 @@
+.myColumn{
+    margin: 2%;
+}
+
+.box{
+    width: 50px;
+    border: 2mm black;
+}
+
+.container-fluid{
+justify-content: center;
+}
+
+.btn-file{
+    background-color: green;
+    
+    color: white;
+}
+
+.selectionbox{
+     
+    align-content: center;
+    width: 100%;
+    place-content: center ;
+
+}

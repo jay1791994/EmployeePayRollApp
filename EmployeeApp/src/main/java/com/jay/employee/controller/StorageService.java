@@ -14,31 +14,39 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jay.employee.service.EmployeeService;
+
 @Service
 public class StorageService {
 
-	@Value("${value.to.folder}")
-	String pathoffolder;
+	@Value("${value.to.invoice}")
+	String pathoffolderforinvoice;
+	
+	@Value("${value.to.timesheets}")
+	String pathoffolderfortimesheet;
 
-	public void uploadFile(MultipartFile file, Date begindate, Date enddate) throws Exception {
+
+	public void invoiceFile(MultipartFile file, Date begindate, Date enddate, String empName) throws Exception {
 
  
+		
+		
 		String fileName = file.getOriginalFilename();
 		
 		String ext = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 		 
 		
 		
-		String filename = getfilename(begindate, enddate);
+		String filename = getfilename(begindate, enddate, empName);
 		String month = getmonth(begindate.getMonth());
 		System.out.println("Month is " + month);
 		int year = begindate.getYear() + 1900;
 		
 		
 
-		File theDir = new File(pathoffolder + month + year);
+		File theDir = new File(pathoffolderforinvoice + month + year);
 		theDir.mkdir();
-		Path newfile = Paths.get(pathoffolder + theDir.getName() + "//" + filename+ext);
+		Path newfile = Paths.get(pathoffolderforinvoice + theDir.getName() + "//" + filename+ext);
 		try {
 
 			Files.write(newfile, file.getBytes());
@@ -49,6 +57,36 @@ public class StorageService {
 
 	}
 
+	public void uploadFile(MultipartFile file, Date begindate, Date enddate, String empName) throws Exception {
+
+		 
+		String fileName = file.getOriginalFilename();
+		
+		String ext = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+		 
+		
+		
+		String filename = getfilename(begindate, enddate, empName);
+		String month = getmonth(begindate.getMonth());
+		System.out.println("Month is " + month);
+		int year = begindate.getYear() + 1900;
+		
+		
+
+		File theDir = new File(pathoffolderfortimesheet + month + year);
+		theDir.mkdir();
+		Path newfile = Paths.get(pathoffolderfortimesheet + theDir.getName() + "//" + filename+ext);
+		try {
+
+			Files.write(newfile, file.getBytes());
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	
 	private String getmonth(int month) {
 
 		switch (month) {
@@ -84,10 +122,10 @@ public class StorageService {
 
 	}
 
-	private static String getfilename(Date begindate, Date enddate) {
+	private static String getfilename(Date begindate, Date enddate, String empName) {
 
 		String filename = begindate.toInstant().toString().substring(0, 10) + "to"
-				+ enddate.toInstant().toString().substring(0, 10) + "userId" + "ABC";
+				+ enddate.toInstant().toString().substring(0, 10) + empName;
 		return filename;
 	}
 }

@@ -1,10 +1,10 @@
 
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Employee } from '../Admin/Employee.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 
 @Injectable({
@@ -12,18 +12,51 @@ import { Employee } from '../Admin/Employee.model';
 })
 export class AuthService {
 
-   constructor(){
+   role: string;
+   token: string ;
+   host:string = "http://localhost:8080/";
+
+
+   constructor(private _http:HttpClient){
 
     }
 
 
-    singin(userName:string, password:string){
+    singin(userName:string, passWord:string): Observable<any>{
 
-        if(userName === 'admin' && password === 'password'){
-            return "ROLE_ADMIN";
-        }else if(userName === "user" && password === "password" ){
-            return "ROLE_USER";
-        }
-    }
+       let credential: Credentials = new Credentials;
 
+       credential.username = userName ;
+       credential.password = passWord ;
+
+ 
+        
+      return this._http.post("http://localhost:8080/authenticate", credential);
+         
+     }
+
+      settoken(tkn:string):void {
+         this.token = tkn;
+       }
+
+       gettoken():string {
+        return this.token;
+      }
+
+       registeruser(cred: Credentials): Observable<any>{
+
+        
+            let webtoken = 'Bearer '+this.gettoken();
+            const header = new HttpHeaders({'myKey':webtoken});
+
+          return this._http.post<any>(this.host+"create/user", cred, {headers:header} );
+       }
+
+   
+}
+
+class Credentials{
+    username:string;
+    password:string;
+    
 }

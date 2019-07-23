@@ -1,7 +1,11 @@
+<div style="background: maroon">
 <div class="login-page">
     <div class="form">
        <input type="text" [(ngModel)]="userName" placeholder="username"/>
         <input type="password" [(ngModel)]="password" placeholder="password"/>
         <button (click)="login()">login</button>
+        <br/>
+        <br/>
+        <p *ngIf="!wrongcredentials">Incorrect UserName or Password </p>
     </div>
-</div>
+    </div>

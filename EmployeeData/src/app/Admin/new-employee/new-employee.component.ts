@@ -3,6 +3,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { newEmployee } from './newEmployee.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -22,11 +23,14 @@ export class NewEmployeeComponent implements OnInit {
     cmp_Name: new FormControl('', Validators.required),
     methodofpayment: new FormControl('', Validators.required) ,
     address : new FormControl(''),
-    contactNumber: new FormControl('')
+    contactNumber: new FormControl(''),
+    password: new FormControl('')
 
   });
 
-  constructor(private _router: Router, private _employeeService: EmployeeService) { }
+  userExists: boolean = false;
+
+  constructor(private _router: Router, private _employeeService: EmployeeService, private _auth: AuthService) { }
 
   ngOnInit() {
   }
@@ -52,24 +56,45 @@ export class NewEmployeeComponent implements OnInit {
         this.profileForm.value.contactNumber,
         this.profileForm.value.rate);
 
-      console.log(newemp)
+      console.log(newemp);
 
-      this._employeeService.postEmployee(newemp).subscribe(
-               data => {
-                 console.log("subscribing the value");
-                 console.log(data);
-               },
-               error => {
-                 console.log(error);
-               },
-               ()=>{
-                 this._router.navigate(['emp']);
-               }
+      let credentials = new Credentials();
+       credentials.username = this.profileForm.value.email;
+       credentials.password = this.profileForm.value.password ;
 
+      this._auth.registeruser(credentials).subscribe(
+                    data => {
+                       console.log(data);
+                       this._employeeService.postEmployee(newemp).subscribe(
+                                  data => {
+                                    console.log("subscribing the value");
+                                   console.log(data);
+                                  },
+                                  error => {
+                                    console.log(error);
+                                  },
+                                 ()=>{
 
-      );
+                       })
+                     },
+                     err => {
+                        this.userExists = true;
+                     },
+                     () =>{
+                      this._router.navigate(['emp'], { skipLocationChange: true });
+                     }
+  
+  
+                  );
+  
      }
 
   }
 
+}
+
+
+class Credentials{
+  username:string;
+  password:string;
 }

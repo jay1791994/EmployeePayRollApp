@@ -17,11 +17,14 @@ export class ProfileComponent implements OnInit {
   constructor( private _route:ActivatedRoute, private _employeeService:EmployeeService) { }
 
   ngOnInit() {
-    let empId =   this._route.snapshot.paramMap.get('id');
-  this._employeeService.getEmployee(empId).subscribe(
+  let empId =   this._route.snapshot.paramMap.get('id');
+  this._employeeService.getEmployeeDataforUser(empId).subscribe(
        data => {
          console.log(data);
          this.emp = data ;
+       },
+       err =>{
+          console.log(err);
        }
   );
   }

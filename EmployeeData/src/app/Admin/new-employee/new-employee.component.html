@@ -1,7 +1,8 @@
 <div class="container-fluid">
-<div class="login-page">
+<div class="form-page">
     <h1 style="text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; color: white; font-weight: bold">FILL THE FORM</h1>
     <button (click)="goback()" style="text-align:center; width:150px ; margin: 1% ; background-color: white ; color: maroon" >BACK</button>
+    <h3 style="color: white" *ngIf="userExists">USER WITH THIS EMAILID EXISTS </h3>
     <div class="form">
       <form [formGroup]="profileForm">
         <div class="container-fluid">
@@ -82,6 +83,16 @@
                          </div>
                        </div>
                       </div>
+                      <div class="container-fluid">
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <p>CREATE PASSWORD:</p>
+                            </div>
+                            <div class="col-sm-9">
+                               <input formControlName="password"  type="text" style="width: 100% ; height: 20px;">
+                           </div>
+                         </div>
+                        </div>
              <button class="btn" (click)="onsubmitform()">SUBMIT</button>
       </form>
 

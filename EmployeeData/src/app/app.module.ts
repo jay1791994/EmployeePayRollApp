@@ -14,6 +14,7 @@ import { ProfileComponent } from './data/profile/profile.component';
 import { ProfiledetailsComponent } from './data/profiledetails.component';
 import { NewEmployeeComponent } from './Admin/new-employee/new-employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { KeysPipe } from './Admin/keys.pipe';
 
 @NgModule({
  
@@ -26,7 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  declarations: [AppComponent ,HoursComponent, AdminComponent, EmployeeDetailsComponent, HomeComponent, ProfileComponent, ProfiledetailsComponent, NewEmployeeComponent],
+  declarations: [AppComponent ,HoursComponent, AdminComponent, EmployeeDetailsComponent, HomeComponent, ProfileComponent, ProfiledetailsComponent, NewEmployeeComponent, KeysPipe],
   bootstrap:    [ AppComponent ]
 
 })

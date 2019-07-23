@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,6 +39,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 
 		emp.setEmpId(id);
+		
+		System.out.println("generated empiD IS"+ emp.getEmpId());
 
 		empRepo.save(emp);
 
@@ -60,8 +64,29 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return false;
 	}
 	return true;
-	}
+}
 	
+	
+	
+	public Employee getempIdfromEmail(String userName) {
+	
+		Employee empId = empRepo.getempIdfromEmail(userName);
+		if(empId == null) {
+			System.out.println("this is null");
+		}
+		return empId;
+	}
+
+	@Override
+	public Employee getEmployeeRate(String empId) {
+		return empRepo.getEmployeeRatefromEmpId(empId);
+	}
+
+	@Override
+	public Employee getEmployeeNamefromEmpId(String empId) {
+		
+		return empRepo.getEmployeeNamefromEmpId(empId);
+	}
 	
 
 }

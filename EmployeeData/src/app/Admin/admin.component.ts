@@ -54,7 +54,7 @@ export class AdminComponent implements OnInit {
       
     this._employeeService.deleteEmployee(emp).subscribe(
        (data)=>{
-
+           console.log("data deleted")
        },
        err => {
 
@@ -62,8 +62,9 @@ export class AdminComponent implements OnInit {
        ()=>{
         this._employeeService.getEmployeeData().subscribe(
           data => {
-            console.log("data is"+ data);
-            this.employeeData = data ;
+           
+            this.employeeData = data;
+            
           }
       )
        }

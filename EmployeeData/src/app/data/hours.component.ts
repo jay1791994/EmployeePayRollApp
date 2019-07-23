@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {IMyDrpOptions} from 'mydaterangepicker';
 import { WorkingDay } from './WorkingDay';
 import { UploadImageService } from '../services/upload-image.service';
-import { isNull } from '@angular/compiler/src/output/output_ast';
+import { HoursRequest } from './hoursRequest.model';
+
+import { HourService } from '../services/hour.service';
+
 
 @Component({
   selector: 'app-hours',
@@ -12,19 +15,23 @@ import { isNull } from '@angular/compiler/src/output/output_ast';
 export class HoursComponent implements OnInit {
 
 
+
+  @Input() empId: string;
+
   file : File;
   daysofweek: WorkingDay[] = [];
   displayColumns: boolean= false ;
   dateInterval: Date[]= [];
- days :String[] = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  months :String[] = ['January','February','March','April','May','June','July','August','September','October','November','December']; 
-
+  dates :String[] = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
+  months :String[] = ["01","02","03","04","05","06","07","08","09","10","11","12"]; 
+  dayTobeAdded: string ;
+  days : string[] = ["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THUSRDAY","FRIDAY","SATURDAY"];
 
   myDateRangePickerOptions: IMyDrpOptions = {
       dateFormat: 'dd.mm.yyyy',
 };
 
-  constructor(private _uploadService: UploadImageService) { }
+  constructor(private _uploadService: UploadImageService, private _hoursService: HourService) { }
 
   ngOnInit() {
   }
@@ -43,44 +50,59 @@ export class HoursComponent implements OnInit {
       this.bDate.setDate(event.beginDate.day);
       this.bDate.setFullYear(event.beginDate.year);
      
+
+      console.log(event.beginDate);
   
+      console.log(this.bDate);
      
        for(var i=0 ; i < 7 ; i++){
        
           this.eDate = new Date();
           this.eDate= new Date(this.bDate.getTime()+1000*60*60*24*i) ;
-         
+
+          console.log(this.eDate);
+
           let workingDay = new WorkingDay(this.eDate, 0);
           this.dateInterval.push(this.eDate);
           this.daysofweek.push(workingDay);
        }
 
-       console.log(this.bDate);
-       console.log(this.eDate);
-       
-      
       }
 
 
       total: number = 0 ;
 
   calculatehours(){
-
+           
+         let hrsRequest: HoursRequest = new HoursRequest();
+         hrsRequest.empId = this.empId;
          this.total = 0;
          for(var i=0 ; i < 7 ; i++){
-           this.total = this.total + this.daysofweek[i].hour ;
+
+          console.log(this.daysofweek[i].dateoftheday+"  "+ this.daysofweek[i].hour);
+
+          this.dayTobeAdded= this.daysofweek[i].dateoftheday.getFullYear()+"-"+(this.months[this.daysofweek[i].dateoftheday.getMonth()])+"-"+this.dates[this.daysofweek[i].dateoftheday.getDate()];
+          console.log("DAY TO B ADDED IS"+ this.dayTobeAdded)
+          hrsRequest.hourMap[this.dayTobeAdded] = this.daysofweek[i].hour;
+          this.total = this.total + this.daysofweek[i].hour ;
          }
 
-         console.log("total hous is " +  this.total);
-         
+         console.log(hrsRequest);
+
+         this._hoursService.uploadHours(hrsRequest).subscribe(
+             data => {
+               console.log(data);
+             },
+             err => {
+               console.log(err);
+             }
+         )
   }
 
   onfilechange(event){
-        
         console.log("file changed");
         this.file = event.target.files[0];
-
-  }
+      }
 
   onfileupload(){
         
@@ -88,19 +110,8 @@ export class HoursComponent implements OnInit {
             alert("FILE IS NOT SELECTED");
             return;
         }
-        let startdate :string = this.bDate.getMonth()+1+"/"+this.bDate.getDate()+"/"+this.bDate.getFullYear();
-        let endingdate :string =this.eDate.getMonth()+1+"/"+this.eDate.getDate()+"/"+this.eDate.getFullYear();
-
-        console.log("start date is" +startdate);
-        console.log("ending date is"+ endingdate);
-
-        this._uploadService.fileupload(this.file,startdate, endingdate);
+        let startdate :string = this.months[this.bDate.getMonth()]+"/"+this.dates[this.bDate.getDate()]+"/"+this.bDate.getFullYear();
+        let endingdate :string =this.months[this.eDate.getMonth()]+"/"+this.dates[this.eDate.getDate()]+"/"+this.eDate.getFullYear();
+        this._uploadService.fileupload(this.file,startdate, endingdate, this.empId);
       }
-
-
-      onDateRangeChanged(event){
-        console.log(event.beginDate);
-        console.log(event.endDate);
-      }
- 
-    }
+ }

@@ -13,5 +13,10 @@ public interface EmployeeService {
 	Employee saveEmployee(Employee emp);
 	List<Employee> getEmployees();
 	boolean deleteEmployee(String empId);
+    Employee getempIdfromEmail(String userName);
+	Employee getEmployeeRate(String empId);
+	Employee getEmployeeNamefromEmpId(String empId);
+    
+  
 
 }

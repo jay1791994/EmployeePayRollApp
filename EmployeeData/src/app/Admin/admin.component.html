@@ -1,13 +1,14 @@
+<footer class="container-fluid">
+  <h2 style="text-align: center; color: white">EMPLOYEE DATA</h2>
+</footer>
 
-
-<h1 style="text-align:center"> Employee Data </h1>
 <div class="container-fluid">
 <div class="row">
   <div class="col-lg-1">
   </div>
     <div class="col-lg-2">
         <div class="form-group">
-            <label for="sel1">Select list:</label>
+            <label for="sel1" style="color: white">Select list:</label>
             <select (change)="filterdata($event.target.value)" class="form-control" id="sel1">
               <option value="all">ALL</option>
               <option value="monthly">MONTHLY</option>
@@ -19,16 +20,20 @@
     </div>
     <div class="col-lg-3">
         <div class="form-group">
-           <label>NEW EMPLOYEE</label>
+           <label style="color: white">NEW EMPLOYEE</label>
            <button class="btn btn-primary" (click)="createProfile()">CREATE NEW EMPLOYEE</button>
           </div>
     </div>
+    
+    
+  </div>
+    
    </div>
 <div class="container-fluid" *ngIf="employeeData.length" >
    
     <div class="panel panel-default">
       
-        <div class="panel-heading">Panel heading</div>
+        <div class="panel-heading">EMPLOYEE DATA</div>
       
         <!-- Table -->
         <table class="table">
@@ -48,7 +53,7 @@
         <td>{{emp.cmp_Name}}</td>
         <td>{{emp.rate| currency}}</td>
         <td>{{emp.methodofpayment}}</td>
-        <td><button class="btn btn-primary" (click)="viewdetails(emp)">Edit</button></td>
+        <td><button class="btn btn-primary" (click)="viewdetails(emp)">VIEW</button></td>
         <td><button class="btn btn-danger" (click)="deleteemp(emp)">DELETE</button></td>
       </tr>
      

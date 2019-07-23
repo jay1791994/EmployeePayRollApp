@@ -1,20 +1,19 @@
 
-
-<div class="selectionbox">
+<div class="container-fluid" style="background-color: lightyellow; padding: 15px; margin: 15px">
+ <div class="selectionbox">
   <br>
-  <div class="container">
+ 
   <div class="row">
   <div class="col-lg-3">
   <p>SELECT  WEEK </p>
   <form #myForm="ngForm" novalidate>
   <my-date-range-picker (dateRangeChanged)="datesSubmitted($event)" name="mydaterange" [options]="myDateRangePickerOptions"
-                 disableSince="" required></my-date-range-picker>
-  
+  disableSince="" required></my-date-range-picker>
   </form>
   </div>
  
   </div>
-  </div>
+  
 </div>
 
 
@@ -34,11 +33,11 @@
 <div class="row" *ngIf="displayColumns" >
    
       <div class="col-lg-2">
-         <button style="text-align: center" class="btn btn-primary" (click)="calculatehours()">SUBMIT HOURS</button>
+         <button style="text-align: center ; background-color: maroon; color: white" class="btn btn-default" (click)="calculatehours()">SUBMIT HOURS</button>
       </div>
      <div class="col-lg-4">
         <div class="input-group">
-            <span class="input-group-addon"><button (click)="onfileupload()"style="background-color: skyblue">UPLOAD</button></span>
+            <span class="input-group-addon"><button (click)="onfileupload()"style="background-color:maroon; color: white">UPLOAD</button></span>
             <input (change)="onfilechange($event)" type="file" class="form-control" name="email" placeholder="Email">
         </div>
         
@@ -48,12 +47,11 @@
 <div class="row" *ngIf="!(total === 0)" >
     <div class="col-lg-4">
      </div>
-     <div class="col-lg-4">
-        <h1> Total hours are {{total}}</h1>
+     <div class="col-lg-5">
+        <h1 style="color:navy"> Total hours are {{total}}</h1>
      </div>
-    <div class="col-lg-4">
-    </div>
-
+    <div class="col-lg-5">
+</div>
 </div>
 
 

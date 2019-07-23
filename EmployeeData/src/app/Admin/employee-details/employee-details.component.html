@@ -1,4 +1,4 @@
-<h1 style="text-align: center"> Employee Details </h1>
+<h1 style="text-align: center; color: white"> Employee Details </h1>
 
 
 <div class="container">
@@ -8,12 +8,56 @@
      <div class="panel panel-warning">
         <div class="panel-heading"><h2>THIS IS DATA FOR:  {{emp.empName}}</h2></div>
         <div class="panel-body">
+          <div class="container">
+              <div class="row">
+          <div class="col-lg-6">
             <p> Company Name : {{emp.cmp_Name}} </p>
             <p> Rate id : {{emp.rate | currency}} </p>
             <p> Payment Method is : {{emp.methodofpayment}} </p>
+            <p> EMAIL ID is : {{emp.email}} </p>
+            <p> Contcat Number is  : {{emp.contactNumber}} </p>
+            <p> SSN is : {{emp.ssn}} </p>
+            </div>
+            <div class="col-lg-6">
+                    <div class="selectionbox">
+                            <br>
+                           
+                            <p>SELECT  WEEK </p>
+                            <form #myForm="ngForm" novalidate>
+                            <my-date-range-picker (dateRangeChanged)="datesSubmitted($event)" name="mydaterange" [options]="myDateRangePickerOptions"
+                            disableSince="" required></my-date-range-picker>
+                            </form>
+                           
+            </div>
+              <div class="btn btn-primary" style="background-color: maroon" (click)="generateInvoice()">GENERATE INVOICE </div>
+              <br/>
+              <br/>
+              <div class="input-group" style="width:350px">
+                    <span class="input-group-addon"><button  (click)="onfileupload()" style="background-color:maroon; color:white; width:100px">UPLOAD</button></span>
+                    <input (change)="onfilechange($event)" type="file" class="form-control" name="email" placeholder="Email">
+            </div>
+            </div>
+            </div>
+            </div>
         </div>
       </div>
       <br>
   <button (click)="goback()" class="btn btn-danger">BACK </button>
+
+  <div *ngIf="invoiceResponse" style="background-color: blue; margin: 2%">
+        <h1 style="text-align: center; color: white">INVOICE</h1>
+        <div class="container-fluid" style="background-color:whitesmoke; margin-bottom: 2%">
+        <div *ngFor="let item of invoiceResponse.hourMap | keys">
+            {{item.key}} : {{item.value}} hours
+        </div> 
+        <div >
+            total hours: {{invoiceResponse.totalHours}}
+        </div>
+        <div style="color: blue; font-size: 30px">
+           total Amount: {{invoiceResponse.totalAmount|currency}}
+      </div>
+      </div>
+  
+
     
   </div>
